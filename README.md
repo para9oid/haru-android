@@ -4,7 +4,6 @@
 <h1 align="center">Mitrio</h1>
 <p align="center">A calmer way to remember what matters, one small step at a time.</p>
 <p align="center">
-  <img alt="Android app" src="https://img.shields.io/badge/Android-app-66509A?logo=android&logoColor=white" />
   <img alt="Private by default" src="https://img.shields.io/badge/Private-by%20default-188A78" />
   <img alt="AI is optional" src="https://img.shields.io/badge/On--device%20AI-optional-D78A5B" />
   <img alt="Beta version 2.1 beta 9" src="https://img.shields.io/badge/Beta-2.1--beta9-8B76AE" />
@@ -12,7 +11,6 @@
 
 ![Mitrio's illustrated fresh-start home screen](app/src/main/res/drawable-nodpi/mitrio_hero.png)
 
-# Mitrio Beta 2.1-beta9
 
 **Mitrio helps you remember what matters, one small step at a time.** Add reminders, make a plan for today, work on goals and habits, and check in with your progress.
 
@@ -20,7 +18,7 @@ Your plans and chats stay on your phone. You do not need an account. The optiona
 
 ## Try Mitrio on your phone
 
-1. Download the APK file from the [latest beta release](https://github.com/para9oid/mitrio-android/releases).
+1. Download the APK file from the [latest beta release](https://github.com/para9oid/mitrio/releases).
 2. Open the downloaded file on your Android phone and tap **Install**. If Android asks, allow your browser or file app to install this file.
 3. Open Mitrio. Allow notifications if you want reminders to appear.
 
