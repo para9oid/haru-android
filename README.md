@@ -1,34 +1,42 @@
-# Haru Beta — a private, gentle-start planner
+# Mitrio Beta 2.1-beta8
 
-Haru means a fresh beginning. The original sunrise-and-path icon and soft anime-inspired scene reflect the idea that starting again is always allowed.
+A private, warm planner for people whose plans sometimes slip away. The sunrise-and-path artwork is a reminder that starting again is allowed.
 
-Haru stores your name, tasks, goals, routines, habit check-ins, chat, and saved memories locally on your phone. Android cloud backup is disabled for the app. Haru has no account, analytics, chat sync, or cloud AI. Haru downloads only the public on-device model you select. If you explicitly approve a web search, Haru opens your browser with the reviewed search phrase; your original message is not sent automatically. The AI model itself runs on the phone's CPU or GPU. Dedicated NPU acceleration is not assumed.
+Mitrio keeps your name, assistant name, tasks, goals, routines, habit check-ins, chat, and saved memories on your phone. Android cloud backup is disabled. There is no account, analytics, chat sync, or cloud AI. You choose whether to download an on-device model. If you approve a web search, Mitrio opens your browser with the reviewed search phrase; your original message is not sent automatically.
 
-## Features
+## What’s in this beta
 
-- First launch asks what Haru should call you. It greets you by name and shows one original quote per day. The 30-quote set is never repeated; when it's used up, Haru stops showing quotes.
-- Add tasks with an optional first tiny step, then tap **Start** for a five-minute focus timer.
-- Add one-time task reminders or daily routine alarms. A plain phrase such as “remind me of waking up every day at 7 am” becomes a daily 7:00 AM routine with the chosen title. With Android's **Alarms & reminders** access, Haru schedules a precise alarm and plays the phone's alarm tone continuously until you stop or snooze it. Use **More → Hear a test alarm** to check the actual alarm sound immediately. Full-screen alarm controls require Android's full-screen notification access; without precise alarm access, Android may delay the fallback reminder, which cannot guarantee sustained ringing.
-- Record a thought through on-device speech recognition when the phone provides it, or type it.
-- Ask Haru for task, habit, routine, or goal suggestions. The optional AI makes suggestions from the thought; review, edit, and select what to save. With AI off, a lightweight local rule-based suggestion is available.
-- Talk with Haru in a private conversation. Recent turns and preferences you explicitly save under **Teach Haru** stay in the local database and help future replies. This is local context memory, not model retraining. Clear chat without deleting saved memories. If Haru is unsure, it can offer a web search; review or edit the query, then tap **Search the web** to open it in your browser. No search runs automatically.
-- Choose AI off, a 143 MB compact model intended for 4 GB phones, or a 345 MB standard INT4 model suggested for 8 GB phones. Haru reports the phone's RAM as a guide. Model downloads are user-started, Wi-Fi only by default, cancellable, SHA-256 checked, and never contain your private notes. Mobile data must be enabled explicitly.
-- Create a portable JSON backup and restore it on a new installation. Backups include chat and saved memories; a restore asks before replacing existing entries. Save backups to a private local folder such as Downloads, then move them yourself. Haru does not upload them.
+- Set a name or nickname on the first screen; it stays on this phone. On first open, Mitrio explains and asks for precise alarm access, then asks for notification permission.
+- Choose **Easy** for a three-tab home with one next step, simple progress, and optional shortcuts. Choose **Geek** for a six-tab dashboard with task/habit/routine counts, streak details, routines, goals, and full AI controls.
+- Find options under the **Settings** tab, grouped by Profile & interface, Reminders & alarms, Language & tone, Assistant & AI, Recovery support, and Backups & data. Geek mode keeps its detailed controls inside the matching section.
+- Start a goal from a practical suggestion. For example, “Build a running habit” adds the goal and a daily “Move for 10 minutes” check-in; you can also write your own goal.
+- Pick **English** or **Hinglish** for the app and AI. Choose a **Friendly**, **Moderate**, or **Brutally honest** reply style. Blunt mode can use strong language, but does not insult or shame you.
+- Use **Plan today together** to talk through what you want to do, your available time and energy, and the tasks and goals you already saved.
+- Get an honest **Did you do it?** check-in for timed tasks and routines. “Not yet” keeps the task without guilt and offers a smaller next step or another reminder.
+- Choose focused alarms or **Low-key mode**, which only puts a quiet notification in your shade. Set an optional daily goal check-in time in **Settings → Reminders & alarms**.
+- Add tasks with an optional first tiny step, then tap **5 min** for a five-minute focus timer.
+- On first open, get a plain-language prompt for Android's **Alarms & reminders** access, followed by notification permission. Android 14+ can also offer optional full-screen alarm access. Add one-time task reminders or daily routine alarms; without the needed access, Android may delay or hide reminders.
+- Talk by typing or on-device dictation. With **personal context** enabled, Mitrio can use relevant prior chat, saved notes, open tasks, goals, routines, and recent habit check-ins as context. Turn this off in **Settings → Assistant & AI** any time. Context helps replies feel personal; the model's downloaded weights are not retrained.
+- **Quiet local learning** is optional and off until you enable it in **Settings → Assistant & AI**. If enabled, Android may run the model after Mitrio is minimized, at most once a day, only while charging and idle. It runs at low priority and can be delayed. It makes a short, tentative preference note from recent chats and routine or habit patterns; it does not read recovery check-ins, retrain model weights, or upload anything. The phone may warm up or feel briefly slower. Turn the option off to cancel future runs and erase the note.
+- Choose AI off, a 143 MB compact model intended for 4 GB phones, or a 345 MB standard INT4 model suggested for 8 GB phones. Downloads are user-started, Wi-Fi only by default, cancellable, and SHA-256 checked. Your notes are never included.
+- Create a portable JSON backup and restore it on a new installation. Backups now include your assistant name, language, tone, reminder style, chats, goals, habits, and saved notes. Older Haru backups are still accepted.
 
-## Install
+## Update or install
 
-Open this folder in Android Studio and build the debug APK, or run `./gradlew assembleDebug` on macOS/Linux (`gradlew.bat assembleDebug` on Windows). The APK is created at `app/build/outputs/apk/debug/app-debug.apk`. Transfer it to your Android phone and open it to install. Installing over Haru preserves its data. Allow notifications so reminders can appear.
+This beta uses the same Android application ID and signing key as Haru beta4, so install it over the existing app; do **not** uninstall first. Android should update the app and keep its saved data. The app will appear as **Mitrio** afterward. Keep the same signing key when building future update APKs.
 
-## Credit
-
-Haru Beta is a collaboration by **para9oid × GPT**. Personal tasks, routines, goals, habit check-ins, and AI prompts stay on the phone.
+Open this folder in Android Studio and build the debug APK, or run `./gradlew assembleDebug` on macOS/Linux (`gradlew.bat assembleDebug` on Windows). The APK is created at `app/build/outputs/apk/debug/app-debug.apk`. Transfer it to your Android phone and open it to install. Allow notifications so reminders can appear.
 
 ## Privacy and limits
 
-Haru does not call a cloud AI API or transmit your notes. The optional model download contacts Hugging Face only to fetch the model weights you selected; inference remains local. Web search is a separate opt-in action: Haru shows the proposed search phrase, lets you edit it, and opens your browser only when you tap Search. The search provider then receives that phrase. The standard download uses a smaller INT4 model file, about 345 MB instead of the previous 614 MB file. Downloads are Wi-Fi only by default and can be cancelled. Dictation uses Android's on-device recognition service only when available. If it is unavailable, Haru asks you to type instead of using an online speech service.
+On-device AI uses your phone's CPU/GPU and may make it feel slower for a few seconds. Optional background reflection uses low-priority CPU work while charging and idle, at most once a day; Android may postpone it. Smaller models can still be wrong. Mitrio uses instructions and local context to guide them; it does not fine-tune or retrain the downloaded model. Web search is a separate choice: review or edit the proposed phrase and tap **Search the web** before it opens your browser. The search provider receives that phrase.
 
-Backups contain personal data in readable JSON. Store them somewhere private. Restore replaces the current Haru lists and check-ins with the backup contents. Model files are not in the backup; you can download them again after moving phones.
+Backups are readable JSON containing personal information. Store them somewhere private. Model files are not included in backups and must be downloaded again on a new phone. Dictation uses Android's on-device speech service only when available; otherwise type your thought.
 
-Android 12 and later require the user to grant **Alarms & reminders** special access before Haru can schedule precise ringing alarms. Android 14 and later may also require **Full-screen notifications** access to show alarm controls over the lock screen. Android 13 and later require notification permission for the ongoing alarm controls. Alarm volume, sound selection, notification access, and battery restrictions can affect delivery. Open Haru → **More** to see the alarm access status. Without precise alarm access, Haru uses an inexact fallback that may be late and cannot guarantee sustained ringing.
+Android 12 and later require **Alarms & reminders** special access for precise alarms. Android 14 and later may also require **Full-screen notifications** access. Android 13 and later require notification permission. Alarm volume, app battery restrictions, and notification settings can still affect delivery.
 
-Haru is a personal organizer, not medical care or addiction treatment. It does not provide crisis support, medication guidance, or recovery services.
+Mitrio is a personal organizer, not medical care or addiction treatment. It does not provide crisis support, medication guidance, or recovery services.
+
+## Credit
+
+Mitrio Beta is a collaboration by **para9oid × GPT**.

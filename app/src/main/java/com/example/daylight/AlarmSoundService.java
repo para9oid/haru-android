@@ -35,7 +35,7 @@ public class AlarmSoundService extends Service {
         startTone();startVibration();return START_NOT_STICKY;
     }
     void createChannel(){
-        if(Build.VERSION.SDK_INT>=26){NotificationManager manager=getSystemService(NotificationManager.class);NotificationChannel channel=new NotificationChannel(CHANNEL,"Haru ringing alarms",NotificationManager.IMPORTANCE_HIGH);channel.setDescription("Ongoing alarm tone. Stop or snooze it from the alarm screen or notification.");channel.setSound(null,null);channel.enableVibration(false);manager.createNotificationChannel(channel);}
+        if(Build.VERSION.SDK_INT>=26){NotificationManager manager=getSystemService(NotificationManager.class);NotificationChannel channel=new NotificationChannel(CHANNEL,"Mitrio ringing alarms",NotificationManager.IMPORTANCE_HIGH);channel.setDescription("Ongoing alarm tone. Stop or snooze it from the alarm screen or notification.");channel.setSound(null,null);channel.enableVibration(false);manager.createNotificationChannel(channel);}
     }
     Notification buildNotification(int id,String title,String body){
         boolean test=testMode;
@@ -56,17 +56,16 @@ public class AlarmSoundService extends Service {
             if(tone==null)tone=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
             if(tone==null)tone=Settings.System.DEFAULT_ALARM_ALERT_URI;
             if(tone==null)tone=Settings.System.DEFAULT_NOTIFICATION_URI;
-            player=new MediaPlayer();player.setWakeMode(this,PowerManager.PARTIAL_WAKE_LOCK);player.setAudioAttributes(new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build());player.setDataSource(this,tone);player.setLooping(true);player.setOnPreparedListener(mp->mp.start());player.setOnErrorListener((mp,what,extra)->{ReminderReceiver.showFallback(this,alarmId,"Haru alarm","The alarm tone could not start. Check your alarm sound settings.");stopAlarm();return true;});player.prepareAsync();
-        }catch(Exception e){ReminderReceiver.showFallback(this,alarmId,"Haru alarm","The alarm tone could not start. Check your alarm sound settings.");stopAlarm();}
+            player=new MediaPlayer();player.setWakeMode(this,PowerManager.PARTIAL_WAKE_LOCK);player.setAudioAttributes(new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build());player.setDataSource(this,tone);player.setLooping(true);player.setOnPreparedListener(mp->mp.start());player.setOnErrorListener((mp,what,extra)->{ReminderReceiver.showFallback(this,alarmId,"Mitrio alarm","The alarm tone could not start. Check your alarm sound settings.");stopAlarm();return true;});player.prepareAsync();
+        }catch(Exception e){ReminderReceiver.showFallback(this,alarmId,"Mitrio alarm","The alarm tone could not start. Check your alarm sound settings.");stopAlarm();}
     }
     void startVibration(){
         try{vibrator=(Vibrator)getSystemService(VIBRATOR_SERVICE);if(vibrator!=null&&vibrator.hasVibrator()){long[] pattern={0,500,500,500};vibrator.vibrate(VibrationEffect.createWaveform(pattern,0));}}catch(Exception ignored){}
     }
     static void stop(Context context,int id){context.stopService(new Intent(context,AlarmSoundService.class));((NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(NOTIFICATION_OFFSET+id);}
     static void snooze(Context context,int id,String title,String body){scheduleSnooze(context,id,title,body);stop(context,id);}
-    static void scheduleSnooze(Context context,int id,String title,String body){
-        AlarmManager am=(AlarmManager)context.getSystemService(ALARM_SERVICE);long at=System.currentTimeMillis()+5*60*1000L;MainActivity.scheduleAlarm(context,id,title,body==null?"Snooze is over. One small step.":body,false,0,0,at,"com.example.daylight.action.SNOOZE_TRIGGER."+id);
-    }
+    static void scheduleSnooze(Context context,int id,String title,String body){scheduleSnoozeMinutes(context,id,title,body,5);}
+    static void scheduleSnoozeMinutes(Context context,int id,String title,String body,int minutes){AlarmManager am=(AlarmManager)context.getSystemService(ALARM_SERVICE);long at=System.currentTimeMillis()+Math.max(1,minutes)*60*1000L;MainActivity.scheduleAlarm(context,id,title,body==null?"Snooze is over. One small step.":body,false,0,0,at,"com.example.daylight.action.SNOOZE_TRIGGER."+id);}
     void stopAlarm(){
         try{if(player!=null){if(player.isPlaying())player.stop();player.release();player=null;}}catch(Exception ignored){}
         try{if(vibrator!=null){vibrator.cancel();vibrator=null;}}catch(Exception ignored){}
