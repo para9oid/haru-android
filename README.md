@@ -6,7 +6,7 @@
 <p align="center">
   <img alt="Private by default" src="https://img.shields.io/badge/Private-by%20default-188A78" />
   <img alt="AI is optional" src="https://img.shields.io/badge/On--device%20AI-optional-D78A5B" />
-  <img alt="Beta version 2.1 beta 9" src="https://img.shields.io/badge/Beta-2.1--beta9-8B76AE" />
+  <img alt="Mitrio version 1.0 final" src="https://img.shields.io/badge/Version-1.0%20Final-5A9B76" />
 </p>
 
 ![Mitrio's illustrated fresh-start home screen](app/src/main/res/drawable-nodpi/mitrio_hero.png)
@@ -18,11 +18,11 @@ Your plans and chats stay on your phone. You do not need an account. The optiona
 
 ## Try Mitrio on your phone
 
-1. Download the APK file from the [latest beta release](https://github.com/para9oid/mitrio/releases).
+1. Download the APK file from the [latest release](https://github.com/para9oid/mitrio/releases).
 2. Open the downloaded file on your Android phone and tap **Install**. If Android asks, allow your browser or file app to install this file.
 3. Open Mitrio. Allow notifications if you want reminders to appear.
 
-**Updating Mitrio?** Install the new APK over the old app. Do not uninstall first, because uninstalling may erase your saved information. The update uses the same app identity as earlier betas.
+**Updating Mitrio?** Install the new APK over the old app. Do not uninstall first, because uninstalling may erase your saved information. The update uses the same app identity as earlier versions.
 
 ## What Mitrio can do
 
@@ -34,7 +34,7 @@ Your plans and chats stay on your phone. You do not need an account. The optiona
 - Keep AI turned off, or optionally download a small AI model that works on your phone. AI may briefly make your phone feel slower while it thinks.
 - Make a backup file you can keep and restore on another phone. Keep that file private because it contains your saved information.
 
-## What’s in this beta
+## What Mitrio includes
 
 - Set a name or nickname on the first screen; it stays on this phone. On first open, Mitrio explains and asks for precise alarm access, then asks for notification permission.
 - Choose **Easy** for a three-tab home with one next step, simple progress, and optional shortcuts. Choose **Geek** for a six-tab dashboard with task/habit/routine counts, streak details, routines, goals, and full AI controls.
@@ -53,7 +53,7 @@ Your plans and chats stay on your phone. You do not need an account. The optiona
 
 ## Update or install
 
-This beta uses the same Android application ID and signing key as the previous beta, so install it over the existing app; do **not** uninstall first. Android should update the app and keep its saved data. Keep the same signing key when building future update APKs.
+Mitrio 1.0 uses the same app identity and signing key as earlier versions, so install it over the existing app; do **not** uninstall first. Android should update the app and keep its saved data. Keep the same signing key when building future update APKs.
 
 Open this folder in Android Studio and build the debug APK, or run `./gradlew assembleDebug` on macOS/Linux (`gradlew.bat assembleDebug` on Windows). The APK is created at `app/build/outputs/apk/debug/app-debug.apk`. Transfer it to your Android phone and open it to install. Allow notifications so reminders can appear.
 
@@ -69,4 +69,4 @@ Mitrio is a personal organizer, not medical care or addiction treatment. It does
 
 ## Credit
 
-Mitrio Beta is a collaboration by **para9oid × GPT**.
+Mitrio is a collaboration by **para9oid × GPT**.
