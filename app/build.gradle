@@ -1,0 +1,23 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.daylight'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.example.daylight'
+        minSdk 26
+        targetSdk 34
+        versionCode 6
+        versionName '2.1-beta4'
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'com.google.ai.edge.litertlm:litertlm-android:0.18.0'
+}

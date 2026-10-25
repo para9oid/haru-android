@@ -1,0 +1,29 @@
+# Android Studio and Gradle state
+.idea/
+.gradle/
+.gradle-home/
+.android-home/
+.kotlin/
+local.properties
+**/build/
+
+# SDK and generated output accidentally stored beside the project
+work/
+outputs/
+
+# Local packages, model weights, backups, and device data
+*.apk
+*.aab
+*.litertlm
+*.db
+*.sqlite
+*.sqlite3
+*.haru-backup.json
+haru-backup*.json
+
+# Signing materials and operating-system files
+*.jks
+*.keystore
+*.pem
+*.p12
+.DS_Store
