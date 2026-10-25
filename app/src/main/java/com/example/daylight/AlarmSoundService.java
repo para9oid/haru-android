@@ -13,7 +13,7 @@ public class AlarmSoundService extends Service {
     static final String ACTION_RING="com.example.daylight.action.RING";
     static final String ACTION_STOP="com.example.daylight.action.STOP_ALARM";
     static final String ACTION_SNOOZE="com.example.daylight.action.SNOOZE_ALARM";
-    static final String CHANNEL="haru_ringing_alarm";
+    static final String CHANNEL=MitrioNotificationChannels.RINGING;
     static final int NOTIFICATION_OFFSET=0x30000000;
     MediaPlayer player;
     Vibrator vibrator;
@@ -35,7 +35,7 @@ public class AlarmSoundService extends Service {
         startTone();startVibration();return START_NOT_STICKY;
     }
     void createChannel(){
-        if(Build.VERSION.SDK_INT>=26){NotificationManager manager=getSystemService(NotificationManager.class);NotificationChannel channel=new NotificationChannel(CHANNEL,"Mitrio ringing alarms",NotificationManager.IMPORTANCE_HIGH);channel.setDescription("Ongoing alarm tone. Stop or snooze it from the alarm screen or notification.");channel.setSound(null,null);channel.enableVibration(false);manager.createNotificationChannel(channel);}
+        MitrioNotificationChannels.createRinging(this);
     }
     Notification buildNotification(int id,String title,String body){
         boolean test=testMode;

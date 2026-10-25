@@ -10,8 +10,8 @@ android {
         applicationId 'com.example.daylight'
         minSdk 26
         targetSdk 34
-        versionCode 10
-        versionName '2.1-beta8'
+        versionCode 11
+        versionName '2.1-beta9'
     }
     kotlinOptions {
         jvmTarget = '1.8'

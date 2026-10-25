@@ -22,7 +22,7 @@ public final class LocalLearningJobService extends JobService {
     private volatile boolean stopped;
 
     public static void schedule(Context context) {
-        android.content.SharedPreferences prefs=context.getSharedPreferences("haru_private",Context.MODE_PRIVATE);
+        android.content.SharedPreferences prefs=MitrioPreferences.get(context);
         if(!prefs.getBoolean("background_learning_enabled",false)||!prefs.getBoolean("personal_context",true))return;
         String mode=prefs.getString("ai_mode",MainActivity.MODEL_OFF);
         if(MainActivity.MODEL_OFF.equals(mode))return;
@@ -44,7 +44,7 @@ public final class LocalLearningJobService extends JobService {
     public static void disableAndClear(Context context) {
         JobScheduler scheduler=(JobScheduler)context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         if(scheduler!=null)scheduler.cancel(JOB_ID);
-        context.getSharedPreferences("haru_private",Context.MODE_PRIVATE).edit()
+        MitrioPreferences.get(context).edit()
                 .putBoolean("background_learning_enabled",false)
                 .remove("background_learning_summary")
                 .remove("background_learning_updated")
@@ -59,7 +59,7 @@ public final class LocalLearningJobService extends JobService {
 
     @Override public boolean onStartJob(JobParameters params) {
         stopped=false;
-        android.content.SharedPreferences prefs=getSharedPreferences("haru_private",MODE_PRIVATE);
+        android.content.SharedPreferences prefs=MitrioPreferences.get(this);
         if(!prefs.getBoolean("background_learning_enabled",false)||!prefs.getBoolean("personal_context",true))return false;
         String mode=prefs.getString("ai_mode",MainActivity.MODEL_OFF);
         File dir=getExternalFilesDir("models");if(dir==null)dir=new File(getFilesDir(),"models");
@@ -76,11 +76,11 @@ public final class LocalLearningJobService extends JobService {
         String routines=localRoutineSummary();
         LocalAi.submitBackground(()->{
             try{
-                if(stopped||!getSharedPreferences("haru_private",MODE_PRIVATE).getBoolean("background_learning_enabled",false)||!getSharedPreferences("haru_private",MODE_PRIVATE).getBoolean("personal_context",true))return;
+                if(stopped||!MitrioPreferences.get(this).getBoolean("background_learning_enabled",false)||!MitrioPreferences.get(this).getBoolean("personal_context",true))return;
                 String summary=LocalAi.learnSummary(model.getAbsolutePath(),mode,conversations,routines).trim();
-                if(!stopped&&getSharedPreferences("haru_private",MODE_PRIVATE).getBoolean("background_learning_enabled",false)&&getSharedPreferences("haru_private",MODE_PRIVATE).getBoolean("personal_context",true)){
+                if(!stopped&&MitrioPreferences.get(this).getBoolean("background_learning_enabled",false)&&MitrioPreferences.get(this).getBoolean("personal_context",true)){
                     if(summary.equalsIgnoreCase("NONE")||summary.startsWith("{")||summary.length()>350)summary="";
-                    getSharedPreferences("haru_private",MODE_PRIVATE).edit().putString("background_learning_summary",summary).putLong("background_learning_updated",System.currentTimeMillis()).apply();
+                    MitrioPreferences.get(this).edit().putString("background_learning_summary",summary).putLong("background_learning_updated",System.currentTimeMillis()).apply();
                 }
             }catch(Exception ignored){
                 // Keep the last local summary when this optional background run cannot finish.
@@ -110,7 +110,7 @@ public final class LocalLearningJobService extends JobService {
 
     @Override public boolean onStopJob(JobParameters params) {
         stopped=true;
-        android.content.SharedPreferences prefs=getSharedPreferences("haru_private",MODE_PRIVATE);
+        android.content.SharedPreferences prefs=MitrioPreferences.get(this);
         return prefs.getBoolean("background_learning_enabled",false)&&prefs.getBoolean("personal_context",true);
     }
 }

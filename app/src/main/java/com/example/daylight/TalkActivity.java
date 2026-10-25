@@ -41,7 +41,7 @@ public class TalkActivity extends Activity {
         getWindow().setStatusBarColor(cream);getWindow().setNavigationBarColor(cream);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR|View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        db=new MainActivity.DB(this);prefs=getSharedPreferences("haru_private",MODE_PRIVATE);build();String starter=getIntent().getStringExtra("starter_message");if(starter!=null&&composer!=null){composer.setText(starter);composer.setSelection(composer.length());if(getIntent().getBooleanExtra("send_starter",false))composer.post(this::sendMessage);}
+        db=new MainActivity.DB(this);prefs=MitrioPreferences.get(this);build();String starter=getIntent().getStringExtra("starter_message");if(starter!=null&&composer!=null){composer.setText(starter);composer.setSelection(composer.length());if(getIntent().getBooleanExtra("send_starter",false))composer.post(this::sendMessage);}
     }
     int dp(float value){return (int)(value*getResources().getDisplayMetrics().density+.5f);}
     String assistantName(){String value=prefs.getString("assistant_name","Mitrio").trim();return value.isEmpty()?"Mitrio":value;}

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Mitrio</title>
+  <desc id="desc">A warm sunrise above a winding path through soft purple hills.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F5EDFF"/>
+      <stop offset="1" stop-color="#E5D8F5"/>
+    </linearGradient>
+    <linearGradient id="sun" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFE2B8"/>
+      <stop offset="1" stop-color="#FFB98E"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="72" fill="url(#sky)"/>
+  <circle cx="173" cy="86" r="30" fill="url(#sun)"/>
+  <path d="M8 153c38-37 69-36 108 1 35-34 78-36 132-5v99H8z" fill="#C9B9DF"/>
+  <path d="M8 184c42-29 76-27 111 2 43-34 80-28 129-4v66H8z" fill="#A895C8"/>
+  <path d="M104 248c-15-24-7-42 13-58 17-14 17-28 1-43 29 8 43 28 26 48-16 19-22 33-6 53z" fill="#F5D4BE"/>
+  <path d="M8 8h240v240H8z" fill="none" stroke="#FFFFFF" stroke-opacity=".75" stroke-width="5" rx="72"/>
+</svg>

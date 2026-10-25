@@ -9,7 +9,7 @@ import android.os.Build;
 import android.provider.Settings;
 
 public class ReminderReceiver extends BroadcastReceiver {
-    static final String FALLBACK_CHANNEL = "haru_alarm_fallback";
+    static final String FALLBACK_CHANNEL = MitrioNotificationChannels.FALLBACK;
     static final String LOW_KEY_CHANNEL = "mitrio_low_key_reminders";
     @Override public void onReceive(Context context, Intent intent) {
         int id=intent.getIntExtra("id",1);
@@ -19,7 +19,7 @@ public class ReminderReceiver extends BroadcastReceiver {
         int hour=intent.getIntExtra("hour",0),minute=intent.getIntExtra("minute",0);
         boolean exact=intent.getBooleanExtra("exact",false);
         if(daily){if(id==MainActivity.GOAL_NUDGE_ID)MainActivity.scheduleGoalNudge(context);else MainActivity.scheduleRoutine(context,id,title==null?"Daily routine":title,hour,minute);}
-        boolean lowKey=context.getSharedPreferences("haru_private",Context.MODE_PRIVATE).getBoolean("low_key_reminders",false);
+        boolean lowKey=MitrioPreferences.get(context).getBoolean("low_key_reminders",false);
         if(exact&&!lowKey){
             try{
                 Intent ring=new Intent(context,AlarmSoundService.class);
@@ -35,13 +35,8 @@ public class ReminderReceiver extends BroadcastReceiver {
     }
     static void showFallback(Context context,int id,String title,String body){
         NotificationManager manager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-        boolean lowKey=context.getSharedPreferences("haru_private",Context.MODE_PRIVATE).getBoolean("low_key_reminders",false);String channelId=lowKey?LOW_KEY_CHANNEL:FALLBACK_CHANNEL;
-        if(Build.VERSION.SDK_INT>=26){
-            NotificationChannel channel=new NotificationChannel(channelId,lowKey?"Mitrio gentle reminders":"Mitrio alarm fallback",lowKey?NotificationManager.IMPORTANCE_DEFAULT:NotificationManager.IMPORTANCE_HIGH);
-            channel.setDescription(lowKey?"Quiet notification-only reminders":"Audible fallback when precise alarm access is off");
-            if(!lowKey){Uri tone=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);if(tone==null)tone=Settings.System.DEFAULT_NOTIFICATION_URI;channel.setSound(tone,new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build());channel.enableVibration(true);channel.setVibrationPattern(new long[]{0,500,500,500});}else{channel.setSound(null,null);channel.enableVibration(false);}
-            manager.createNotificationChannel(channel);
-        }
+        boolean lowKey=MitrioPreferences.get(context).getBoolean("low_key_reminders",false);String channelId=lowKey?LOW_KEY_CHANNEL:FALLBACK_CHANNEL;
+        if(Build.VERSION.SDK_INT>=26){Uri tone=RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);if(tone==null)tone=Settings.System.DEFAULT_NOTIFICATION_URI;AudioAttributes audio=new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION).build();MitrioNotificationChannels.createFallback(context,false,tone,audio);}
         Intent open=new Intent(context,AlarmRingingActivity.class);open.putExtra("id",id);open.putExtra("title",title);open.putExtra("body",body);
         PendingIntent tap=PendingIntent.getActivity(context,id,open,PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
         Notification.Builder b=Build.VERSION.SDK_INT>=26?new Notification.Builder(context,channelId):new Notification.Builder(context);

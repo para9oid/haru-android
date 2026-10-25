@@ -18,8 +18,9 @@ outputs/
 *.db
 *.sqlite
 *.sqlite3
-*.haru-backup.json
-haru-backup*.json
+*.mitrio-backup.json
+mitrio-backup*.json
+*-backup*.json
 
 # Signing materials and operating-system files
 *.jks

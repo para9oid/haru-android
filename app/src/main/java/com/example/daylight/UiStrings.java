@@ -62,7 +62,7 @@ final class UiStrings {
     }
 
     static String t(Context context,String source){
-        if(!"hinglish".equals(context.getSharedPreferences("haru_private",Context.MODE_PRIVATE).getString("ui_language","english")))return source;
+        if(!"hinglish".equals(MitrioPreferences.get(context).getString("ui_language","english")))return source;
         String exact=HINGLISH.get(source);if(exact!=null)return exact;
         if(source.startsWith("Talk to "))return "Baat karein: "+source.substring("Talk to ".length());
         if(source.startsWith("Teach "))return "Sikhayein: "+source.substring("Teach ".length());
